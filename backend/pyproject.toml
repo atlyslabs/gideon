@@ -1,0 +1,59 @@
+[tool.poetry]
+name = "gideon"
+version = "0.1.0"
+description = "AI Work Assistant — personal AI that connects to your work tools"
+authors = ["Abhishek Banerjee <https://github.com/abhiban9>"]
+license = "Apache-2.0"
+# Application, not a published library — Poetry skips packaging metadata.
+package-mode = false
+homepage = "https://github.com/atlyslabs/gideon"
+repository = "https://github.com/atlyslabs/gideon"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+uvicorn = { extras = ["standard"], version = "^0.32.1" }
+fastapi = "^0.115.0"
+python-dotenv = "^1.0.0"
+sentry-sdk = { version = "^1.31.0", extras = ["fastapi"] }
+structlog = "^24.1.0"
+sqlalchemy = { extras = ["asyncio"], version = "^2.0.42" }
+psycopg = { extras = ["binary"], version = "^3.2.9" }
+greenlet = "^3.2.3"
+redis = { extras = ["hiredis"], version = "^5.0.0" }
+httpx = "^0.27.0"
+anthropic = {version = ">=0.85.0,<1.0.0", extras = ["aiohttp"]}
+google-auth = "^2.29.0"
+google-auth-oauthlib = "^1.2.0"
+google-api-python-client = "^2.130.0"
+slack-sdk = "^3.33.0"
+aiohttp = "^3.9.0"
+cryptography = "^43.0.0"
+prometheus-fastapi-instrumentator = "^7.0.0"
+graphiti-core = "^0.28.2"
+openai = "^1.0.0"
+# pypdfium2 (Apache-2.0/BSD) rather than PyMuPDF, which is AGPL-3.0 and would
+# be incompatible with distributing this project under Apache-2.0.
+pypdfium2 = "^4.30.0"
+pillow = "^11.0.0"
+python-docx = "^1.1.0"
+openpyxl = "^3.1.0"
+python-pptx = "^1.0.0"
+python-multipart = "^0.0.18"
+markdown = "^3.6"
+weasyprint = "^65.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.4.1"
+pytest-asyncio = "^1.1.0"
+pytest-cov = "^6.2.1"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+markers = [
+    "asyncio: mark a test as an async test",
+]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
