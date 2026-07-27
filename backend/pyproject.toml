@@ -40,7 +40,7 @@ openpyxl = "^3.1.0"
 python-pptx = "^1.0.0"
 python-multipart = "^0.0.18"
 markdown = "^3.6"
-weasyprint = "^65.0"
+weasyprint = "^69.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.4.1"
