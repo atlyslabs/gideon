@@ -43,7 +43,7 @@ markdown = "^3.6"
 weasyprint = "^65.0"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^8.4.1"
+pytest = "^9.0.3"
 pytest-asyncio = "^1.1.0"
 pytest-cov = "^6.2.1"
 
