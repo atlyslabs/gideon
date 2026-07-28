@@ -4,9 +4,9 @@
 
 Please do not open a public issue for a security problem.
 
-Report it privately through
-[GitHub Security Advisories](https://github.com/atlyslabs/gideon/security/advisories/new),
-which lets us discuss and fix the issue before any details are public.
+Report it by following the instructions in the **Vulnerability Disclosure Program**
+section at [atlys.com/security](https://www.atlys.com/security).
+This lets us triage and fix the issue before any details become public.
 
 Please include:
 

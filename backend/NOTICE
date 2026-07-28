@@ -1,0 +1,43 @@
+Gideon - AI Work Assistant
+Copyright 2024 Atlys Labs
+
+This product is licensed under the Apache License, Version 2.0.
+You may obtain a copy of the License at:
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+------------------------------------------------------------------------
+THIRD-PARTY COMPONENTS
+------------------------------------------------------------------------
+
+This software includes the following third-party components distributed
+under licenses other than Apache 2.0:
+
+psycopg (version 3.x)
+  License: GNU Lesser General Public License v3.0 (LGPL-3.0-only)
+  Homepage: https://www.psycopg.org
+  Source:   https://github.com/psycopg/psycopg
+
+  psycopg is used as a PostgreSQL database adapter and is dynamically
+  linked at runtime. In accordance with the LGPL-3.0, users of this
+  software may replace psycopg with a modified version of their own.
+  The psycopg source code is available at the URL above.
+
+pyphen (version 0.x)
+  License: GNU Lesser General Public License v2.1 or later (LGPLv2+),
+           GNU General Public License v2.0 or later (GPLv2+),
+           Mozilla Public License 1.1 (MPL 1.1)
+  Homepage: https://pyphen.org
+  Source:   https://github.com/Kozea/Pyphen
+
+  pyphen is a transitive dependency of WeasyPrint and is not imported
+  directly by this project. It is used solely for hyphenation during
+  PDF rendering. This project relies on pyphen under the MPL 1.1 license
+  option of its tri-license. pyphen source code is available at the URL
+  above.
+
+------------------------------------------------------------------------
+All other dependencies are distributed under permissive licenses
+(MIT, BSD, Apache 2.0, or ISC). Full license texts for all dependencies
+are available via: poetry run pip-licenses --format=plain-vertical
+------------------------------------------------------------------------

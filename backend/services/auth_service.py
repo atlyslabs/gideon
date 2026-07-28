@@ -39,7 +39,19 @@ logger = structlog.get_logger()
 AUTH_MODE = os.environ.get("AUTH_MODE", "single_user").strip().lower()
 
 # --- single_user mode -------------------------------------------------------
-SINGLE_USER_ID = os.environ.get("SINGLE_USER_ID", "00000000-0000-0000-0000-000000000001")
+# SINGLE_USER_ID must be set to a random UUID in your .env — do not rely on
+# this fallback in any real deployment. Generate one with:
+#   python -c "import uuid; print(uuid.uuid4())"
+# The all-zeros default exists only so `poetry run pytest` boots without a
+# .env file. It must never be used against a persistent database.
+SINGLE_USER_ID = os.environ.get("SINGLE_USER_ID") or "00000000-0000-0000-0000-000000000001"
+if SINGLE_USER_ID == "00000000-0000-0000-0000-000000000001":
+    import warnings
+    warnings.warn(
+        "SINGLE_USER_ID is using the insecure default UUID. "
+        "Set a random UUID in your .env: python -c \"import uuid; print(uuid.uuid4())\"",
+        stacklevel=1,
+    )
 SINGLE_USER_EMAIL = os.environ.get("SINGLE_USER_EMAIL", "you@example.com")
 SINGLE_USER_NAME = os.environ.get("SINGLE_USER_NAME", "Gideon User")
 
