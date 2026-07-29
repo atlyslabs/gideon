@@ -1,0 +1,17 @@
+# CODEOWNERS — every PR requires review from at least one owner.
+# GitHub automatically requests review from the most specific matching rule.
+# Docs: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default: all files require review from either maintainer
+*                               @abhiban9 @sarvajit-s
+
+# Backend — platform and security lead is a required reviewer
+backend/                        @abhiban9 @sarvajit-s
+
+# Compliance and legal files — security lead must approve
+SECURITY.md                     @sarvajit-s
+LICENSE                         @sarvajit-s
+NOTICE                          @sarvajit-s
+
+# CI/CD and repo configuration — both maintainers
+.github/                        @abhiban9 @sarvajit-s

@@ -1,0 +1,89 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: local
+      POSTGRES_DB: gideon
+    ports:
+      - "5432:5432"
+    volumes:
+      - gideon_pg:/var/lib/postgresql/data
+      # Applied only on first boot of an empty volume.
+      - ./backend/migrations/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d gideon"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  # Powers the long-term memory graph. Without it Gideon still runs and still
+  # remembers — memory just falls back to Postgres and the graph view is empty.
+  neo4j:
+    image: neo4j:5-community
+    environment:
+      # Neo4j 5 refuses to start on a password shorter than 8 characters.
+      NEO4J_AUTH: neo4j/localdevpass
+      NEO4J_server_memory_heap_max__size: 1G
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - gideon_neo4j:/data
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://localhost:7474 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+      start_period: 30s
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file:
+      - ./backend/.env
+    environment:
+      POSTGRES_HOST: postgres
+      REDIS_HOST: redis
+      # Service name, not localhost — the .env default is for running the
+      # backend outside Docker.
+      NEO4J_URI: bolt://neo4j:7687
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      neo4j:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      # NEXT_PUBLIC_* is inlined by Next.js at BUILD time, so these must be
+      # build args. Under `environment:` they have no effect — the browser
+      # bundle is already compiled by the time the container starts.
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:8080
+        NEXT_PUBLIC_APP_URL: http://localhost:3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  gideon_pg:
+  gideon_neo4j:
