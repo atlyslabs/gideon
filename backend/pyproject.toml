@@ -34,7 +34,7 @@ openai = "^1.0.0"
 # pypdfium2 (Apache-2.0/BSD) rather than PyMuPDF, which is AGPL-3.0 and would
 # be incompatible with distributing this project under Apache-2.0.
 pypdfium2 = "^4.30.0"
-pillow = "^11.0.0"
+pillow = "^13.0.0"
 python-docx = "^1.1.0"
 openpyxl = "^3.1.0"
 python-pptx = "^1.0.0"
